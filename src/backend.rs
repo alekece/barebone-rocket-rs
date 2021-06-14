@@ -1,5 +1,5 @@
-#[cfg(all(feature = "postgres", feature = "mysql"))]
-compile_error!("features `crate/postgres` and `crate/mysql` are mutually exclusive");
+#[cfg(all(feature = "postgres", feature = "sqlite"))]
+compile_error!("features `crate/postgres` and `crate/sqlite` are mutually exclusive");
 
 use crate::{
   types::{User, UserCredendials},
@@ -11,8 +11,8 @@ use r2d2::{Pool, PooledConnection};
 #[cfg(feature = "postgres")]
 type Connection = diesel::PgConnection;
 
-#[cfg(feature = "mysql")]
-type Connection = diesel::MysqlConnection;
+#[cfg(feature = "sqlite")]
+type Connection = diesel::SqliteConnection;
 
 pub struct Backend {
   connection_pool: Pool<ConnectionManager<Connection>>,

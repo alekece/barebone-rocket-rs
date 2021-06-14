@@ -6,7 +6,7 @@ database integration.
 ## Requirement
 - Rust version 1.52 or newer.
 - Diesel CLI with `postgres` or `sqlite` features.
-- A running [PostgreSQL](https://www.postgresql.org/) or [MySQL](https://www.mysql.com/) backend.
+- A running [PostgreSQL](https://www.postgresql.org/) or [Sqlite](https://www.sqlite.org/index.html) backend.
   
 ## Setup environment
 
@@ -26,7 +26,7 @@ Run the following command to fulfill the requirements :
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Install ORM and query builder
-cargo install diesel_cli --no-default-features --features "postgres mysql"
+cargo install diesel_cli --no-default-features --features "postgres sqlite"
 
 # Install the desired through docker or locally
 

@@ -3,7 +3,7 @@ name = "simple-rocket-rs"
 version = "0.1.0"
 edition = "2018"
 description = "A barebones Rocket API with JWT authentication and database integration"
-keywords = ["postgres", "mysql", "jwt", "rocket", "api"]
+keywords = ["postgres", "sqlite", "jwt", "rocket", "api"]
 authors = ["Alexis Le Provost <alexis.leprovost@outlook.com>"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -21,4 +21,4 @@ r2d2 = "0.8.9"
 [features]
 default = ["postgres"]
 postgres = ["diesel/postgres", "diesel/r2d2"]
-mysql = ["diesel/mysql", "diesel/r2d2"]
+sqlite = ["diesel/sqlite", "diesel/r2d2"]
