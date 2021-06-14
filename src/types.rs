@@ -7,9 +7,10 @@ use rocket::{
 
 use crate::{schema::*, Backend, Error, Tokenizer};
 use serde::{Deserialize, Serialize};
+use rocket_okapi::JsonSchema;
 
 #[derive(
-  Debug, Clone, Queryable, Identifiable, Insertable, Serialize, Deserialize, AsChangeset,
+  Debug, Clone, Queryable, Identifiable, Insertable, Serialize, Deserialize, AsChangeset, JsonSchema
 )]
 #[table_name = "users"]
 #[primary_key(username)]
@@ -22,7 +23,7 @@ pub struct User {
   pub token: Option<String>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, JsonSchema)]
 pub struct PartialUser {
   pub username: String,
   pub email: String,
@@ -39,13 +40,13 @@ impl From<User> for PartialUser {
   }
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, JsonSchema)]
 pub struct UserCredendials {
   pub username: String,
   pub password: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, JsonSchema)]
 pub struct ApiKey {
   pub token: String,
 }

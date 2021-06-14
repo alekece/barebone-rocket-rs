@@ -3,11 +3,13 @@ use crate::{
   Backend, Error, Result, Tokenizer,
 };
 use rocket::{
-  response::status::{Created, NoContent},
+  response::status::Created,
   serde::json::{self, Json},
   State,
 };
+use rocket_okapi::openapi;
 
+#[openapi]
 #[post("/authenticate", data = "<credentials>")]
 pub fn authenticate_user(
   credentials: std::result::Result<Json<UserCredendials>, json::Error<'_>>,
@@ -32,6 +34,7 @@ pub fn authenticate_user(
     })
 }
 
+#[openapi]
 #[post("/users", data = "<user>")]
 pub fn add_user(
   user: std::result::Result<Json<User>, json::Error<'_>>,
@@ -48,17 +51,19 @@ pub fn add_user(
     .map(|_| Created::new(format!("/users/{}", username)))
 }
 
+#[openapi]
 #[delete("/users/<username>")]
 pub fn delete_user(
   username: String,
   api_key: std::result::Result<ApiKey, Error>,
   backend: &State<Backend>,
-) -> Result<NoContent> {
+) -> Result<()> {
   let _ = api_key?;
 
-  backend.delete_user(&username).map(|_| NoContent)
+  backend.delete_user(&username)
 }
 
+#[openapi]
 #[get("/users")]
 pub fn get_all_users(
   backend: &State<Backend>,

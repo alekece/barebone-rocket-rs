@@ -1,4 +1,7 @@
-use rocket::routes;
+use rocket_okapi::{
+  routes_with_openapi,
+  swagger_ui::{make_swagger_ui, SwaggerUIConfig},
+};
 use simple_rocket_rs::{routes, Backend, Result, Tokenizer};
 use std::time::Duration;
 use structopt::StructOpt;
@@ -25,12 +28,19 @@ async fn main() -> Result<()> {
     .manage(Backend::new(&opt.database_url)?)
     .mount(
       "/",
-      routes![
+      routes_with_openapi![
         routes::authenticate_user,
         routes::add_user,
         routes::delete_user,
         routes::get_all_users
       ],
+    )
+    .mount(
+      "/swagger/",
+      make_swagger_ui(&SwaggerUIConfig {
+        url: "../openapi.json".to_owned(),
+        ..Default::default()
+      }),
     )
     .launch()
     .await

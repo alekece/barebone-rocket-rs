@@ -57,6 +57,8 @@ To print the project usage, an option `-h` is available.
 
 ``` http
 
+GET /swagger
+
 POST /authenticate
 {
 "username": "string",
@@ -79,3 +81,4 @@ Authorization: Bearer <token>
 DELETE /users/<username>
 Authorization: Bearer <token>
 ```
+

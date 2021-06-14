@@ -9,7 +9,7 @@ authors = ["Alexis Le Provost <alexis.leprovost@outlook.com>"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-rocket = { version = "0.5.0-dev", git = "https://github.com/SergioBenitez/Rocket", features = ["json"]}
+rocket = { version = "0.5.0-rc", features = ["json"]}
 jwt-simple = "0.10.0"
 structopt = "0.3.21"
 serde = "1.0.126"
@@ -17,6 +17,9 @@ parse_duration = "2.1.1"
 thiserror = "1.0.25"
 diesel = { version = "1.4.6", optional = true }
 r2d2 = "0.8.9"
+rocket_okapi = "0.7.0-alpha-1"
+schemars =  "0.8.3"
+okapi = { version = "0.6.0-alpha-1", features = ["derive_json_schema"] }
 
 [features]
 default = ["postgres"]

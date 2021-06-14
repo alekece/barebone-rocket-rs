@@ -1,9 +1,11 @@
+use okapi::openapi3::Responses;
 use rocket::{
   http::Status,
   request::Request,
   response::{self, Responder},
   serde::json::Json,
 };
+use rocket_okapi::{gen::OpenApiGenerator, response::OpenApiResponderInner};
 use serde::ser::{Serialize, SerializeStruct, Serializer};
 use thiserror::Error;
 
@@ -73,5 +75,11 @@ impl<'r> Responder<'r, 'static> for Error {
     response::Response::build_from(Json(self).respond_to(request)?)
       .status(status)
       .ok()
+  }
+}
+
+impl OpenApiResponderInner for Error {
+  fn responses(_generator: &mut OpenApiGenerator) -> rocket_okapi::Result<Responses> {
+    Ok(Responses::default())
   }
 }
