@@ -42,7 +42,7 @@ impl Error {
     match *self {
       Self::UnauthenticatedUser => Status::Unauthorized,
       Self::ForbiddenAccess => Status::Forbidden,
-      Self::BadRequest(_) | Self::JwtError(_) | Self::InvalidResult(_) => Status::BadRequest,
+      Self::BadRequest(_) | Self::JwtError(_) => Status::BadRequest,
       Self::NotFound | Self::UnknownRoute => Status::NotFound,
       _ => Status::InternalServerError,
     }
