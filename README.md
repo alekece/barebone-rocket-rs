@@ -49,6 +49,12 @@ Any time you want to perform a backend switch, you have to :
 3. Run migrations
 4. Build the project with the respective feature flag.
 
+## Create user from command line
+
+``` bash
+cargo run --bin cli -- create -u <username> -e <email> -p <password>
+```
+
 ## Usage
 
 To print the project usage, an option `-h` is available.
@@ -77,8 +83,13 @@ Authorization: Bearer <token>
 "is_admin": boolean
 }
 
-
 DELETE /users/<username>
 Authorization: Bearer <token>
-```
 
+POST /users/change_password
+Authorization: Bearer <token>
+{
+"current": "string",
+"new": "string",
+}
+```
