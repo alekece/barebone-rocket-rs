@@ -46,6 +46,12 @@ pub struct UserCredendials {
   pub password: String,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize, JsonSchema)]
+pub struct NewPassword {
+  pub current: String,
+  pub new: String,
+}
+
 #[derive(Serialize, Deserialize, JsonSchema)]
 pub struct ApiKey {
   pub token: String,

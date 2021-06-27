@@ -33,7 +33,8 @@ async fn main() -> Result<()> {
         routes::authenticate_user,
         routes::add_user,
         routes::delete_user,
-        routes::get_all_users
+        routes::get_all_users,
+        routes::change_user_password,
       ],
     )
     .mount(

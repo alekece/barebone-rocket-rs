@@ -1,6 +1,6 @@
 use crate::{
   hash,
-  types::{ApiKey, PartialUser, User, UserCredendials},
+  types::{ApiKey, NewPassword, PartialUser, User, UserCredendials},
   Backend, Error, Result, Tokenizer,
 };
 use rocket::{
@@ -86,6 +86,33 @@ pub fn get_all_users(
       .collect(),
   ))
 }
+
+#[openapi]
+#[post("/users/change_password", data = "<password>")]
+pub fn change_user_password(
+  password: std::result::Result<Json<NewPassword>, json::Error<'_>>,
+  api_key: std::result::Result<ApiKey, Error>,
+  backend: &State<Backend>,
+) -> Result<()> {
+  let api_key = api_key?;
+  let password = password?;
+
+  backend
+    .find_user_by_token(&api_key.token)
+    .and_then(|user| {
+      if user.password == hash(&password.current) {
+        Ok(User {
+          password: hash(&password.new),
+          ..user
+        })
+      } else {
+        Err(Error::BadRequest("Invalid password".to_string()))
+      }
+    })
+    .and_then(|user| backend.update_user(user))
+    .map(|_| ())
+}
+
 #[catch(400)]
 pub fn bad_request() -> Error {
   Error::BadRequest("Request is ill-formed".to_string())
