@@ -1,3 +1,4 @@
+use rocket::catchers;
 use rocket_okapi::{
   routes_with_openapi,
   swagger_ui::{make_swagger_ui, SwaggerUIConfig},
@@ -42,6 +43,7 @@ async fn main() -> Result<()> {
         ..Default::default()
       }),
     )
+    .register("/", catchers![routes::bad_request, routes::not_found])
     .launch()
     .await
     .map_err(Box::from)?;

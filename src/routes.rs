@@ -86,3 +86,12 @@ pub fn get_all_users(
       .collect(),
   ))
 }
+#[catch(400)]
+pub fn bad_request() -> Error {
+  Error::BadRequest("Request is ill-formed".to_string())
+}
+
+#[catch(404)]
+pub fn not_found() -> Error {
+  Error::UnknownRoute
+}
