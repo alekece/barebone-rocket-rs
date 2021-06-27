@@ -6,11 +6,11 @@ use rocket::{
 };
 
 use crate::{schema::*, Backend, Error, Tokenizer};
-use serde::{Deserialize, Serialize};
 use rocket_okapi::JsonSchema;
+use serde::{Deserialize, Serialize};
 
 #[derive(
-  Debug, Clone, Queryable, Identifiable, Insertable, Serialize, Deserialize, AsChangeset, JsonSchema
+  Debug, Clone, Queryable, Identifiable, Insertable, Serialize, Deserialize, AsChangeset, JsonSchema,
 )]
 #[table_name = "users"]
 #[primary_key(username)]

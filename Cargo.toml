@@ -5,6 +5,7 @@ edition = "2018"
 description = "A barebones Rocket API with JWT authentication and database integration"
 keywords = ["postgres", "sqlite", "jwt", "rocket", "api"]
 authors = ["Alexis Le Provost <alexis.leprovost@outlook.com>"]
+default-run = "simple-rocket-rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -20,6 +21,8 @@ r2d2 = "0.8.9"
 rocket_okapi = "0.7.0-alpha-1"
 schemars =  "0.8.3"
 okapi = { version = "0.6.0-alpha-1", features = ["derive_json_schema"] }
+anyhow = "1.0.41"
+sha2 = "0.9.5"
 
 [features]
 default = ["postgres"]

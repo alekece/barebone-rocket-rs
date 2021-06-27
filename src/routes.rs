@@ -1,4 +1,5 @@
 use crate::{
+  hash,
   types::{ApiKey, PartialUser, User, UserCredendials},
   Backend, Error, Result, Tokenizer,
 };
@@ -19,7 +20,10 @@ pub fn authenticate_user(
   let credentials = credentials?;
 
   backend
-    .find_user(credentials.into_inner())
+    .find_user(UserCredendials {
+      password: hash(&credentials.password),
+      ..credentials.into_inner()
+    })
     .and_then(|user| {
       tokenizer.generate().map(|token| User {
         token: Some(token),
@@ -47,7 +51,10 @@ pub fn add_user(
   let username = &user.username.clone();
 
   backend
-    .add_user(user.into_inner())
+    .add_user(User {
+      password: hash(&user.password),
+      ..user.into_inner()
+    })
     .map(|_| Created::new(format!("/users/{}", username)))
 }
 
